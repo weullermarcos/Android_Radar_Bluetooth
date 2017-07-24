@@ -51,8 +51,11 @@ public class SemiCirculo extends View {
         float center_x, center_y;
         //posiciona horizontalmente no centro da tela
         center_x = width / 2;
+        Log.d("center_x", String.valueOf(center_x));
         //posicionar no fundo da tela, um pouco a cima
         center_y = height;
+        Log.d("center_y", String.valueOf(center_y));
+
 
         //raios dos circulos
         float radius1 = (width/2);
@@ -64,27 +67,22 @@ public class SemiCirculo extends View {
         Log.d("RAIO3", String.valueOf(radius3));
         Log.d("RAIO4", String.valueOf(radius4));
 
-//        Path path1 = new Path();
-//        path1.addCircle(width / 2, height / 2, radius1, Path.Direction.CW);
-//        Path path2 = new Path();
-//        path2.addCircle(width / 2, height / 2, radius2, Path.Direction.CW);
-
-
-        final RectF oval1 = new RectF();
+        RectF oval1 = new RectF();
+//        oval1.set(center_x, center_y , center_x , center_y );
         oval1.set(center_x - radius1, center_y - radius1, center_x + radius1, center_y + radius1);
         canvas.drawArc(oval1, 180, 180, true, paint);
 
-        final RectF oval2 = new RectF();
-        oval2.set(center_x - radius2, center_y - radius2, center_x + radius2, center_y + radius2);
-        canvas.drawArc(oval2, 180, 180, true, paint);
+        oval1 = new RectF();
+        oval1.set(center_x - radius2, center_y - radius2, center_x + radius2, center_y + radius2);
+        canvas.drawArc(oval1, 180, 180, true, paint);
 
-        final RectF oval3 = new RectF();
-        oval3.set(center_x - radius3, center_y - radius3, center_x + radius3, center_y + radius3);
-        canvas.drawArc(oval3, 180, 180, true, paint);
+        oval1 = new RectF();
+        oval1.set(center_x - radius3, center_y - radius3, center_x + radius3, center_y + radius3);
+        canvas.drawArc(oval1, 180, 180, true, paint);
 
-        final RectF oval4 = new RectF();
-        oval4.set(center_x - radius4, center_y - radius4, center_x + radius4, center_y + radius4);
-        canvas.drawArc(oval4, 180, 180, true, paint);
+        oval1 = new RectF();
+        oval1.set(center_x - radius4, center_y - radius4, center_x + radius4, center_y + radius4);
+        canvas.drawArc(oval1, 180, 180, true, paint);
 
     }
 
