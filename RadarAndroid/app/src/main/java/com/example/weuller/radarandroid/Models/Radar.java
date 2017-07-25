@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -15,15 +14,15 @@ import android.view.View;
  * Created by weuller on 21/07/2017.
  */
 
-public class SemiCirculo extends View {
+public class Radar extends View {
 
-    private static final int MARGIN = 20;
+    private static final int HORIZONTAL_MARGIN = 100;
 
-    public SemiCirculo(Context context){
+    public Radar(Context context){
         this(context, null);
     }
 
-    public SemiCirculo(Context context, @Nullable AttributeSet attrs) {
+    public Radar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -32,7 +31,7 @@ public class SemiCirculo extends View {
         super.onDraw(canvas);
 
         //pega a lagura da tela
-        float width = (float) getWidth() - MARGIN;
+        float width = (float) getWidth() - HORIZONTAL_MARGIN;
         Log.d("WIDTH", String.valueOf(width));
         float distanceBetweenPoints = (float) width/8;
         Log.d("DISTANCE", String.valueOf(distanceBetweenPoints));
@@ -50,10 +49,10 @@ public class SemiCirculo extends View {
 
         float center_x, center_y;
         //posiciona horizontalmente no centro da tela
-        center_x = width / 2;
+        center_x = (float) getWidth() / 2;
         Log.d("center_x", String.valueOf(center_x));
         //posicionar no fundo da tela, um pouco a cima
-        center_y = height;
+        center_y = height / 2;
         Log.d("center_y", String.valueOf(center_y));
 
 
@@ -62,6 +61,7 @@ public class SemiCirculo extends View {
         float radius2 = radius1 - distanceBetweenPoints;
         float radius3 = radius2 - distanceBetweenPoints;
         float radius4 = radius3 - distanceBetweenPoints;
+
         Log.d("RAIO1", String.valueOf(radius1));
         Log.d("RAIO2", String.valueOf(radius2));
         Log.d("RAIO3", String.valueOf(radius3));

@@ -5,15 +5,11 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-import com.example.weuller.radarandroid.Models.Circulo;
-import com.example.weuller.radarandroid.Models.Quadrado;
-import com.example.weuller.radarandroid.Models.SemiCirculo;
+import com.example.weuller.radarandroid.Models.Radar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Quadrado quadrado;
-    private Circulo circulo;
-    private SemiCirculo semiCirculo;
+    private Radar radar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,17 +19,9 @@ public class MainActivity extends AppCompatActivity {
         LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         LinearLayout ll = (LinearLayout) findViewById(R.id.lltPrincipal);
 
-//        quadrado =  new Quadrado(this);
-//        quadrado.setLayoutParams(lp);
-//        ll.addView(quadrado);
-
-//        circulo = new Circulo(this);
-//        circulo.setLayoutParams(lp);
-//        ll.addView(circulo);
-
-        semiCirculo = new SemiCirculo(this);
-        semiCirculo.setLayoutParams(lp);
-        ll.addView(semiCirculo);
+        radar = new Radar(this);
+        radar.setLayoutParams(lp);
+        ll.addView(radar);
 
     }
 }
