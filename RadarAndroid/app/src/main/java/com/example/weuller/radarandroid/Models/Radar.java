@@ -88,12 +88,39 @@ public class Radar extends View {
         oval.set(center_x - radius4, center_y - radius4, center_x + radius4, center_y + radius4);
         canvas.drawArc(oval, 180, 180, true, paint);
 
-        //LINHA INFERIOR
+        //LINHA 0 graus
         canvas.drawLine(center_x, center_y, width, center_y, paint);
 
-        //LINHA INFERIOR
+        //LINHA 30 graus
+        float xFinal = xFinalByAngle(30, radius1) + center_x;
+        Log.d("xFSoma", String.valueOf(xFinal));
+        float yFinal = yFinalByAngle(30, radius1) + center_y;
+        Log.d("yFSoma", String.valueOf(yFinal));
+        canvas.drawLine(center_x, center_y, xFinal, yFinal, paint);
+
+        //LINHA 90 graus
         canvas.drawLine(center_x, center_y, center_x, (center_y - radius1 - 20), paint);
 
+        //LINHA 150 graus
+        canvas.drawLine(center_x, center_y, xFinalByAngle(30, radius1), yFinalByAngle(30, radius1), paint);
+
+    }
+
+
+    private float xFinalByAngle(int angle, float hipotenusa){
+
+        //calcula o cateto oposto - o angulo tem que estar em radianos
+        double co = hipotenusa * Math.sin(Math.PI / 180 * angle);
+        Log.d("xFinal", String.valueOf(co));
+        return (float) co;
+    }
+
+    private float yFinalByAngle(int angle, float hipotenusa){
+
+        //calcula o cateto oposto - o angulo tem que estar em radianos
+        double ca = hipotenusa * Math.cos(Math.PI/180*angle);
+        Log.d("yFinal", String.valueOf(ca));
+        return (float) ca;
     }
 
 }
