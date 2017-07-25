@@ -91,6 +91,9 @@ public class Radar extends View {
         //LINHA INFERIOR
         canvas.drawLine(center_x, center_y, width, center_y, paint);
 
+        //LINHA INFERIOR
+        canvas.drawLine(center_x, center_y, center_x, (center_y - radius1 - 20), paint);
+
     }
 
 }

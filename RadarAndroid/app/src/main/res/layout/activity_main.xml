@@ -11,10 +11,33 @@
     tools:context="com.example.weuller.radarandroid.MainActivity">
 
 
-    <!--<com.example.weuller.radarandroid.Models.Quadrado-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--/>-->
+    <com.example.weuller.radarandroid.Models.Radar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="9" />
+
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="START"/>
+
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STOP"/>
+
+    </LinearLayout>
 
 
 
