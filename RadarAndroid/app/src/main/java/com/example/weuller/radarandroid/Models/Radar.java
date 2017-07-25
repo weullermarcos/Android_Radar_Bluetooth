@@ -92,34 +92,44 @@ public class Radar extends View {
         canvas.drawLine(center_x, center_y, width, center_y, paint);
 
         //LINHA 30 graus
-        float xFinal = xFinalByAngle(30, radius1) + center_x;
-        Log.d("xFSoma", String.valueOf(xFinal));
-        float yFinal = yFinalByAngle(30, radius1) + center_y;
-        Log.d("yFSoma", String.valueOf(yFinal));
+        float xFinal = center_x + catetoAdjacente(30, radius1);
+        float yFinal = center_y - catetoOposto(30, radius1);
+        canvas.drawLine(center_x, center_y, xFinal, yFinal, paint);
+
+        //LINHA 60 graus
+        xFinal = center_x + catetoAdjacente(60, radius1);
+        yFinal = center_y - catetoOposto(60, radius1);
         canvas.drawLine(center_x, center_y, xFinal, yFinal, paint);
 
         //LINHA 90 graus
         canvas.drawLine(center_x, center_y, center_x, (center_y - radius1 - 20), paint);
 
+        //LINHA 120 graus
+        xFinal = center_x + catetoAdjacente(120, radius1);
+        yFinal = center_y - catetoOposto(120, radius1);
+        canvas.drawLine(center_x, center_y, xFinal, yFinal, paint);
+
         //LINHA 150 graus
-        canvas.drawLine(center_x, center_y, xFinalByAngle(30, radius1), yFinalByAngle(30, radius1), paint);
+        xFinal = center_x + catetoAdjacente(150, radius1);
+        yFinal = center_y - catetoOposto(150, radius1);
+        canvas.drawLine(center_x, center_y, xFinal, yFinal, paint);
 
     }
 
 
-    private float xFinalByAngle(int angle, float hipotenusa){
+    private float catetoOposto(int angle, float hipotenusa){
 
         //calcula o cateto oposto - o angulo tem que estar em radianos
         double co = hipotenusa * Math.sin(Math.PI / 180 * angle);
-        Log.d("xFinal", String.valueOf(co));
+        Log.d("CAT_OPOSTO", String.valueOf(co));
         return (float) co;
     }
 
-    private float yFinalByAngle(int angle, float hipotenusa){
+    private float catetoAdjacente(int angle, float hipotenusa){
 
         //calcula o cateto oposto - o angulo tem que estar em radianos
         double ca = hipotenusa * Math.cos(Math.PI/180*angle);
-        Log.d("yFinal", String.valueOf(ca));
+        Log.d("CAT_ADJ", String.valueOf(ca));
         return (float) ca;
     }
 
