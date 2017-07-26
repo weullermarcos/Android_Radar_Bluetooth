@@ -17,6 +17,14 @@ import android.view.View;
 public class Radar extends View {
 
     private static final int HORIZONTAL_MARGIN = 120;
+    private static final int INITIAL_ANGLE = 15;
+    private static final int FINAL_ANGLE = 165;
+
+    private float startX = 0;
+    private float startY = 0;
+    private boolean incrementAngle = true;
+
+    private int currentAngle = INITIAL_ANGLE;
 
     public Radar(Context context){
         this(context, null);
@@ -41,19 +49,15 @@ public class Radar extends View {
         float height = (float) getHeight();
         Log.d("HEIGHT", String.valueOf(height));
 
-        //Paint
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStrokeWidth(5);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setStyle(Paint.Style.STROKE);
 
         float center_x, center_y;
         //posiciona horizontalmente no centro da tela
         center_x = width / 2;
+        startX = center_x;
         Log.d("center_x", String.valueOf(center_x));
         //posicionar no fundo da tela, um pouco a cima
         center_y = height / 2;
+        startY = center_y;
         Log.d("center_y", String.valueOf(center_y));
 
 
@@ -114,14 +118,48 @@ public class Radar extends View {
         yFinal = center_y - catetoOposto(150, radius1);
         canvas.drawLine(center_x, center_y, xFinal, yFinal, paint);
 
+        xFinal = center_x + catetoAdjacente(currentAngle, radius1);
+        yFinal = center_y - catetoOposto(currentAngle, radius1);
+        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+
+        if (currentAngle <= FINAL_ANGLE && incrementAngle) { // set end points
+
+            currentAngle ++;
+        }
+        else if(currentAngle == INITIAL_ANGLE){
+            incrementAngle = true;
+            currentAngle ++;
+        }
+        else{
+            incrementAngle = false;
+            currentAngle --;
+        }
+
+        postInvalidateDelayed(15); // set time here
     }
 
+    private Paint paint = new Paint() {
+        {
+            setColor(Color.GREEN);
+            setStrokeWidth(5);
+            setStyle(Paint.Style.FILL);
+            setStyle(Paint.Style.STROKE);
+        }
+    };
+
+    private Paint paintLine = new Paint(Paint.ANTI_ALIAS_FLAG) {
+        {
+            setColor(Color.RED);
+            setStrokeWidth(5);
+            setStyle(Paint.Style.FILL);
+            setStyle(Paint.Style.STROKE);
+        }
+    };
 
     private float catetoOposto(int angle, float hipotenusa){
 
         //calcula o cateto oposto - o angulo tem que estar em radianos
         double co = hipotenusa * Math.sin(Math.PI / 180 * angle);
-        Log.d("CAT_OPOSTO", String.valueOf(co));
         return (float) co;
     }
 
@@ -129,7 +167,6 @@ public class Radar extends View {
 
         //calcula o cateto oposto - o angulo tem que estar em radianos
         double ca = hipotenusa * Math.cos(Math.PI/180*angle);
-        Log.d("CAT_ADJ", String.valueOf(ca));
         return (float) ca;
     }
 
