@@ -135,7 +135,7 @@ public class Radar extends View {
             currentAngle --;
         }
 
-        postInvalidateDelayed(15); // set time here
+        postInvalidateDelayed(30); // set time here
     }
 
     private Paint paint = new Paint() {
@@ -147,7 +147,7 @@ public class Radar extends View {
         }
     };
 
-    private Paint paintLine = new Paint(Paint.ANTI_ALIAS_FLAG) {
+    private Paint paintLine = new Paint() {
         {
             setColor(Color.RED);
             setStrokeWidth(5);
