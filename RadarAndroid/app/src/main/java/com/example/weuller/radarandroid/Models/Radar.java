@@ -159,11 +159,12 @@ public class Radar extends View {
         canvas.drawText("20 cm", (center_x + radius3 - X_BACK_TEXT_CONSTANT), (center_y - Y_BACK_TEXT_CONSTANT), paintText);
         canvas.drawText("10 cm", (center_x + radius4 - X_BACK_TEXT_CONSTANT), (center_y - Y_BACK_TEXT_CONSTANT), paintText);
 
-
+        //Desenhando Agulha
         xFinal = center_x + catetoAdjacente(currentAngle, radius1);
         yFinal = center_y - catetoOposto(currentAngle, radius1);
         canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
 
+        //lógica para controle de movimento da agulha
         if (currentAngle <= FINAL_ANGLE && incrementAngle) { // set end points
 
             currentAngle ++;
@@ -177,6 +178,7 @@ public class Radar extends View {
             currentAngle --;
         }
 
+        //delay de movimento da agulha
         postInvalidateDelayed(DELAY); // set time here
     }
 
@@ -209,16 +211,18 @@ public class Radar extends View {
         }
     };
 
+    //calcula o cateto oposto
     private float catetoOposto(int angle, float hipotenusa){
 
-        //calcula o cateto oposto - o angulo tem que estar em radianos
+        //o angulo tem que estar em radianos
         double co = hipotenusa * Math.sin(Math.PI / 180 * angle);
         return (float) co;
     }
 
+    //calcula o cateto oposto
     private float catetoAdjacente(int angle, float hipotenusa){
 
-        //calcula o cateto oposto - o angulo tem que estar em radianos
+        //o angulo tem que estar em radianos
         double ca = hipotenusa * Math.cos(Math.PI/180*angle);
         return (float) ca;
     }
