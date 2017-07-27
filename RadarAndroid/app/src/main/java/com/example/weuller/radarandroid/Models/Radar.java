@@ -36,13 +36,41 @@ public class Radar extends View {
     private float startX = 0;
     private float startY = 0;
     private boolean incrementAngle = true;
-    private int currentAngle = INITIAL_ANGLE;
+    private int needleAngle = INITIAL_ANGLE;
 
     private String objectStr;
     private String objectValueIn;
     private String objectValueOut;
     private String angleStr;
     private String distanceStr;
+
+    private float maxDistance;
+    private float currentAngle;
+    private float currentDistance;
+
+    public float getMaxDistance() {
+        return maxDistance;
+    }
+
+    public void setMaxDistance(float maxDistance) {
+        this.maxDistance = maxDistance;
+    }
+
+    public float getCurrentAngle() {
+        return currentAngle;
+    }
+
+    public void setCurrentAngle(float currentAngle) {
+        this.currentAngle = currentAngle;
+    }
+
+    public float getCurrentDistance() {
+        return currentDistance;
+    }
+
+    public void setCurrentDistance(float currentDistance) {
+        this.currentDistance = currentDistance;
+    }
 
     public Radar(Context context){
         this(context, null);
@@ -54,8 +82,6 @@ public class Radar extends View {
 
     public Radar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        Log.d("LOG", "VERIFICANDO ATRIBUTOS");
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Radar, 0, 0);
 
@@ -211,22 +237,21 @@ public class Radar extends View {
         canvas.drawText("XX cm", (center_x - radius1 + 140), (center_y + 170), paintText2);
 
         //Desenhando Agulha
-        xFinal = center_x + catetoAdjacente(currentAngle, radius1);
-        yFinal = center_y - catetoOposto(currentAngle, radius1);
+        xFinal = center_x + catetoAdjacente(needleAngle, radius1);
+        yFinal = center_y - catetoOposto(needleAngle, radius1);
         canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
 
         //lógica para controle de movimento da agulha
-        if (currentAngle <= FINAL_ANGLE && incrementAngle) { // set end points
-
-            currentAngle ++;
+        if (needleAngle <= FINAL_ANGLE && incrementAngle) { // set end points
+            needleAngle ++;
         }
-        else if(currentAngle == INITIAL_ANGLE){
+        else if(needleAngle == INITIAL_ANGLE){
             incrementAngle = true;
-            currentAngle ++;
+            needleAngle ++;
         }
         else{
             incrementAngle = false;
-            currentAngle --;
+            needleAngle --;
         }
 
         //delay de movimento da agulha
