@@ -14,6 +14,11 @@
     <com.example.weuller.radarandroid.Models.Radar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:angleLabel="Angle: "
+        app:distanceLabel="Distance: "
+        app:objectLabel="Object: "
+        app:objectValueIn="In Range"
+        app:objectValueOut="Out of Range"
         android:layout_weight="9" />
 
 

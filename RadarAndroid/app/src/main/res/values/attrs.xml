@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <declare-styleable name="Radar">
+        <attr name="objectLabel" format="string"/>
+        <attr name="objectValueIn" format="string"/>
+        <attr name="objectValueOut" format="string"/>
+        <attr name="angleLabel" format="string"/>
+        <attr name="distanceLabel" format="string"/>
+    </declare-styleable>
+</resources>

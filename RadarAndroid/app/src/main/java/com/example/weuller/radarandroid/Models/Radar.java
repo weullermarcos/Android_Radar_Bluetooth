@@ -1,6 +1,7 @@
 package com.example.weuller.radarandroid.Models;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+
+import com.example.weuller.radarandroid.R;
 
 /**
  * Created by weuller on 21/07/2017.
@@ -33,15 +36,52 @@ public class Radar extends View {
     private float startX = 0;
     private float startY = 0;
     private boolean incrementAngle = true;
-
     private int currentAngle = INITIAL_ANGLE;
+
+    private String objectStr;
+    private String objectValueIn;
+    private String objectValueOut;
+    private String angleStr;
+    private String distanceStr;
 
     public Radar(Context context){
         this(context, null);
     }
 
     public Radar(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public Radar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        Log.d("LOG", "VERIFICANDO ATRIBUTOS");
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Radar, 0, 0);
+
+        try {
+
+            objectStr = a.getString(R.styleable.Radar_objectLabel);
+            objectStr = objectStr == null ? "Object: " : objectStr;
+
+            objectValueIn = a.getString(R.styleable.Radar_objectValueIn);
+            objectValueIn = objectValueIn == null ? "In Range" : objectValueIn;
+
+            objectValueOut = a.getString(R.styleable.Radar_objectValueOut);
+            objectValueOut = objectValueOut == null ? "Out of Range" : objectValueOut;
+
+            angleStr = a.getString(R.styleable.Radar_angleLabel);
+            angleStr = angleStr == null ? "Angle: " : angleStr;
+
+            distanceStr = a.getString(R.styleable.Radar_distanceLabel);
+            distanceStr = distanceStr == null ? "Distance: " : distanceStr;
+
+        }catch (Exception e){
+
+        }
+        finally {
+            a.recycle();
+        }
     }
 
     @Override
@@ -159,6 +199,17 @@ public class Radar extends View {
         canvas.drawText("20 cm", (center_x + radius3 - X_BACK_TEXT_CONSTANT), (center_y - Y_BACK_TEXT_CONSTANT), paintText);
         canvas.drawText("10 cm", (center_x + radius4 - X_BACK_TEXT_CONSTANT), (center_y - Y_BACK_TEXT_CONSTANT), paintText);
 
+
+        //Desenhando textos inferiores do radar
+//        private String objectValueIn;
+//        private String objectValueOut;
+        canvas.drawText(objectStr, (center_x - radius1 + 30), (center_y + 70), paintText2);
+        canvas.drawText(objectValueOut, (center_x - radius1 + 140), (center_y + 70), paintText2);
+        canvas.drawText(angleStr, (center_x - radius1 + 40), (center_y + 120), paintText2);
+        canvas.drawText("XX°", (center_x - radius1 + 140), (center_y + 120), paintText2);
+        canvas.drawText(distanceStr, (center_x - radius1), (center_y + 170), paintText2);
+        canvas.drawText("XX cm", (center_x - radius1 + 140), (center_y + 170), paintText2);
+
         //Desenhando Agulha
         xFinal = center_x + catetoAdjacente(currentAngle, radius1);
         yFinal = center_y - catetoOposto(currentAngle, radius1);
@@ -197,6 +248,16 @@ public class Radar extends View {
             setStyle(Paint.Style.STROKE);
             setStrokeWidth(2);
             setTextSize(20);
+            setAntiAlias(true);
+        }
+    };
+
+    private Paint paintText2 = new Paint() {
+        {
+            setColor(Color.GREEN);
+            setStyle(Paint.Style.STROKE);
+            setStrokeWidth(3);
+            setTextSize(30);
             setAntiAlias(true);
         }
     };
