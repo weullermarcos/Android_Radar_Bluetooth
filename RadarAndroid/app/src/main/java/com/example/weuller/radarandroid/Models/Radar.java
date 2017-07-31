@@ -45,8 +45,8 @@ public class Radar extends View {
     private String distanceStr;
 
     private float maxDistance;
-    private float currentAngle;
-    private float currentDistance;
+    private String currentAngle;
+    private String currentDistance;
 
     public float getMaxDistance() {
         return maxDistance;
@@ -56,19 +56,19 @@ public class Radar extends View {
         this.maxDistance = maxDistance;
     }
 
-    public float getCurrentAngle() {
-        return currentAngle;
+    public String getCurrentAngle() {
+        return currentAngle == null ? "0" : currentAngle ;
     }
 
-    public void setCurrentAngle(float currentAngle) {
+    public void setCurrentAngle(String currentAngle) {
         this.currentAngle = currentAngle;
     }
 
-    public float getCurrentDistance() {
-        return currentDistance;
+    public String getCurrentDistance() {
+        return currentDistance == null ? "0" : currentDistance;
     }
 
-    public void setCurrentDistance(float currentDistance) {
+    public void setCurrentDistance(String currentDistance) {
         this.currentDistance = currentDistance;
     }
 
@@ -117,23 +117,23 @@ public class Radar extends View {
         //pega a lagura da tela
         float width = (float) getWidth();
         float widthWithMargin = width - HORIZONTAL_MARGIN;
-        Log.d("WIDTH", String.valueOf(widthWithMargin));
+//        Log.d("WIDTH", String.valueOf(widthWithMargin));
         float distanceBetweenPoints = (float) widthWithMargin/8;
-        Log.d("DISTANCE", String.valueOf(distanceBetweenPoints));
+//        Log.d("DISTANCE", String.valueOf(distanceBetweenPoints));
 
         //pega a altura da tela
         float height = (float) getHeight();
-        Log.d("HEIGHT", String.valueOf(height));
+//        Log.d("HEIGHT", String.valueOf(height));
 
         float center_x, center_y;
         //posiciona horizontalmente no centro da tela
         center_x = width / 2;
         startX = center_x;
-        Log.d("center_x", String.valueOf(center_x));
+//        Log.d("center_x", String.valueOf(center_x));
         //posicionar no fundo da tela, um pouco a cima
         center_y = height / 2;
         startY = center_y;
-        Log.d("center_y", String.valueOf(center_y));
+//        Log.d("center_y", String.valueOf(center_y));
 
         //raios dos circulos
         float radius1 = (widthWithMargin/2);
@@ -141,10 +141,10 @@ public class Radar extends View {
         float radius3 = radius2 - distanceBetweenPoints;
         float radius4 = radius3 - distanceBetweenPoints;
 
-        Log.d("RAIO1", String.valueOf(radius1));
-        Log.d("RAIO2", String.valueOf(radius2));
-        Log.d("RAIO3", String.valueOf(radius3));
-        Log.d("RAIO4", String.valueOf(radius4));
+//        Log.d("RAIO1", String.valueOf(radius1));
+//        Log.d("RAIO2", String.valueOf(radius2));
+//        Log.d("RAIO3", String.valueOf(radius3));
+//        Log.d("RAIO4", String.valueOf(radius4));
 
         //arco 1 (MAIOR)
         RectF oval = new RectF();
@@ -232,9 +232,9 @@ public class Radar extends View {
         canvas.drawText(objectStr, (center_x - radius1 + 30), (center_y + 70), paintText2);
         canvas.drawText(objectValueOut, (center_x - radius1 + 140), (center_y + 70), paintText2);
         canvas.drawText(angleStr, (center_x - radius1 + 40), (center_y + 120), paintText2);
-        canvas.drawText("XX°", (center_x - radius1 + 140), (center_y + 120), paintText2);
+        canvas.drawText(this.getCurrentAngle() + "°", (center_x - radius1 + 140), (center_y + 120), paintText2);
         canvas.drawText(distanceStr, (center_x - radius1), (center_y + 170), paintText2);
-        canvas.drawText("XX cm", (center_x - radius1 + 140), (center_y + 170), paintText2);
+        canvas.drawText( this.getCurrentDistance() + " cm", (center_x - radius1 + 140), (center_y + 170), paintText2);
 
         //Desenhando Agulha
         xFinal = center_x + catetoAdjacente(needleAngle, radius1);
@@ -313,4 +313,31 @@ public class Radar extends View {
         return (float) ca;
     }
 
+    public void updateScreenData(String data){
+
+        //grau,distância.grau,distância.grau,distância.
+        //30,20.45,22.85,25.
+
+        if (data.trim().isEmpty() || data == null || data.length() < 6)
+            return;
+
+        Log.d("DATA", data);
+
+        String lastData = data.substring((data.length() - 6));
+        lastData = lastData.replace(",","").replace(".","");
+
+        if (lastData.trim().isEmpty() || lastData == null || lastData.length() < 4)
+            return;
+
+        String angle = lastData.substring(0,2);
+        String distance = lastData.substring(2);
+
+        Log.d("RESULTADO", lastData);
+        Log.d("ANGLE", angle);
+        Log.d("DISTANCE", distance);
+
+        this.setCurrentAngle(angle);
+        this.setCurrentDistance(distance);
+
+    }
 }

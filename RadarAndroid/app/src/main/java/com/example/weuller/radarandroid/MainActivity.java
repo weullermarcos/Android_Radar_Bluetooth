@@ -6,8 +6,10 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
     public static final int MESSAGE_READ = 2;
+    public static final int MESSAGE = 5;
 
     private CommunicationThread mCommunicationThread;
     private ConnectThread mConnectThread;
@@ -52,16 +55,22 @@ public class MainActivity extends AppCompatActivity {
 
         if (!mBluetoothAdapter.isEnabled()) {
 
-//            solicitação para ativar bluetooth
-//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-
             //solicitação para ativar bluetooth e tornar visivel
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
             startActivity(discoverableIntent);
         }
-        
+
+//        if (mAcceptThread == null) {
+//            Log.d("LOG", "CRIANDO UMA NOVA AcceptThread");
+//            mAcceptThread = new AcceptThread();
+//            mAcceptThread.start();
+//        }
+
+        radar =  new Radar(this);
+        radar.updateScreenData("30,20.45,22.85,25.");
+
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,19 +88,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public class AcceptThread extends Thread {
 
         private final BluetoothServerSocket mmServerSocket;
 
         public AcceptThread() {
-            // Use a temporary object that is later assigned to mmServerSocket,
-            // because mmServerSocket is final
+
             BluetoothServerSocket tmp = null;
             try {
 
                 tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("RADAR_ANDROID", uuid);
+
+                Log.d("SUCESSO", "Criado com sucesso");
             }
-            catch (IOException e) { }
+            catch (IOException e) {
+
+                Log.d("ERRO", "AcceptThread: erro ao criar");
+            }
             mmServerSocket = tmp;
         }
 
@@ -206,6 +220,11 @@ public class MainActivity extends AppCompatActivity {
                     bytes = mmInStream.read(buffer);
                     // Send the obtained bytes to the UI activity
                     mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+
+                    //passa string para atualizar a tela
+                                          //grau,distância.grau,distância.grau,distância.
+                    radar.updateScreenData("30,20.45,22.85,25.");
+
                 } catch (IOException e) {
                     break;
                 }
