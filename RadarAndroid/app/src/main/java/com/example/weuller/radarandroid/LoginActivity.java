@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnEntrar;
     private EditText edtSenha, edtEmail;
+    ImageView imgFacebook, imgGoogle;
 
     private FirebaseAuth mAuth;
 
@@ -30,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
+        imgFacebook = (ImageView) findViewById(R.id.imgFacebook);
+        imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -37,8 +41,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(edtEmail.getText().toString() == null || edtSenha.getText().toString() == null)
+                if(edtEmail.getText().toString().trim().isEmpty() || edtSenha.getText().toString().trim().isEmpty()) {
+
+                    Toast.makeText(LoginActivity.this, "Favore preencher todos os campos..", Toast.LENGTH_SHORT).show();
                     return;
+                }
 
                 mAuth.signInWithEmailAndPassword(edtEmail.getText().toString(), edtSenha.getText().toString()).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -61,6 +68,22 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+        imgFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(LoginActivity.this, "Login com Facebook", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        imgGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(LoginActivity.this, "Login com Google", Toast.LENGTH_SHORT).show();
             }
         });
 
