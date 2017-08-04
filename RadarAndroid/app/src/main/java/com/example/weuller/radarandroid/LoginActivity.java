@@ -84,10 +84,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
                             user = task.getResult().getUser();
 
                             if(user != null){
-
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                goToMain();
                             }
                         }
                     }
@@ -106,16 +103,6 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
                         }
                     }
                 };
-
-
-            }
-        });
-
-        imgFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(LoginActivity.this, "Login com Facebook", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,15 +114,13 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
             }
         });
 
-    }
+        imgFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        //mAuth.addAuthStateListener(mAuthListener);
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+                Toast.makeText(LoginActivity.this, "Login com Facebook", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -167,10 +152,9 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
             } else {
 
                 Log.d("LOG", result.toString());
-                Toast.makeText(LoginActivity.this, "Deu treta..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Deu Erro..", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -182,18 +166,17 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         Log.d("LOG", "signInWithCredential:onComplete:" + task.isSuccessful());
+                        if (task.isSuccessful()) {
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w("LOG", "signInWithCredential", task.getException());
-
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            goToMain();
                         }
-                        // ...
+                        else {
+
+                            Log.w("LOG", "signInWithCredential", task.getException());
+                            Toast.makeText(LoginActivity.this, "Erro ao autenticar.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
@@ -202,9 +185,14 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
-        // be available.
         Log.d("LOG", "onConnectionFailed:" + connectionResult);
-        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Erro no Google Play Services.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToMain(){
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
