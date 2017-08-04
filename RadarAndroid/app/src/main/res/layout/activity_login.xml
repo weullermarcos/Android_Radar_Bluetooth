@@ -67,13 +67,19 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/google_plus"/>
 
-            <ImageView
-                android:id="@+id/imgFacebook"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/facebook"/>
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btnFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <!--<ImageView-->
+                <!--android:id="@+id/imgFacebook"-->
+                <!--android:layout_margin="2dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/facebook"/>-->
 
         </LinearLayout>
 
