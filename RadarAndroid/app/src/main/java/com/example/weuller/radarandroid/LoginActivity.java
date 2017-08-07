@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +41,8 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
 
     private Button btnEntrar;
     private EditText edtSenha, edtEmail;
-    ImageView imgGoogle;
     LoginButton facebookButton;
+    SignInButton btnGoogle;
 
     private static final int RC_SIGN_IN = 9001;
 
@@ -61,11 +62,14 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
-        imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
+        btnGoogle = (SignInButton) findViewById(R.id.btnGoogle);
         facebookButton = (LoginButton) findViewById(R.id.btnFacebook);
         facebookButton.setReadPermissions("email", "public_profile");
 
         mCallbackManager = CallbackManager.Factory.create();
+
+        if(mAuth != null)
+            mAuth.signOut();
 
         facebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -148,7 +152,8 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
             }
         });
 
-        imgGoogle.setOnClickListener(new View.OnClickListener() {
+//        Login com Google
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -160,6 +165,12 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
     @Override
     public void onStop() {
         super.onStop();
+
+        if(mAuth != null){
+
+            mAuth.signOut();
+        }
+
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
