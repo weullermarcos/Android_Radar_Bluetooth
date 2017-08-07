@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
 
                 if(edtEmail.getText().toString().trim().isEmpty() || edtSenha.getText().toString().trim().isEmpty()) {
 
-                    Toast.makeText(LoginActivity.this, "Favore preencher todos os campos..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Favor preencher todos os campos..", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

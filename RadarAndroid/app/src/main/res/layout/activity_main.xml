@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
@@ -41,6 +41,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="STOP"/>
+
+        <Button
+            android:layout_gravity="right"
+            android:id="@+id/btnSair"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sair"/>
+
 
     </LinearLayout>
 

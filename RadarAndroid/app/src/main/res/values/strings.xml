@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Radar Android - Weuller</string>
     <string name="facebook_app_id">468157830221111</string>
+    <string name="fb_login_protocol_scheme">fb468157830221111</string>
 </resources>

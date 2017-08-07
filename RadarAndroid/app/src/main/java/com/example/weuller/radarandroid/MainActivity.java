@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Radar radar;
     private Handler mHandler;
-    Button btnStop, btnStart;
+    Button btnStop, btnStart, btnSair;
     UUID uuid = UUID.fromString("0001101-0000-1000-8000-00805F9B34FB");
 
     BluetoothAdapter mBluetoothAdapter = null;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
+        btnSair = (Button) findViewById(R.id.btnSair);
+
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -82,6 +84,19 @@ public class MainActivity extends AppCompatActivity {
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+            }
+        });
+
+        btnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+
+//                finish();
 
             }
         });
