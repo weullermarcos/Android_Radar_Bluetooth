@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.weuller.radarandroid.Models.Radar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE = 5;
 
+    private FirebaseAuth mAuth;
+
     private CommunicationThread mCommunicationThread;
     private ConnectThread mConnectThread;
     private AcceptThread mAcceptThread;
@@ -39,14 +43,23 @@ public class MainActivity extends AppCompatActivity {
 
     BluetoothAdapter mBluetoothAdapter = null;
 
+    private TextView txtUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        txtUsuario = (TextView) findViewById(R.id.txtUsuario);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
         btnSair = (Button) findViewById(R.id.btnSair);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() != null)
+            txtUsuario.setText(mAuth.getCurrentUser().getDisplayName());
 
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -92,11 +105,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(mAuth != null)
+                    mAuth.signOut();
+
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-
-//                finish();
 
             }
         });

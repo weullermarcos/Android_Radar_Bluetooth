@@ -59,6 +59,11 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            goToMain();
+            return;
+        }
+
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
@@ -67,9 +72,6 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         facebookButton.setReadPermissions("email", "public_profile");
 
         mCallbackManager = CallbackManager.Factory.create();
-
-        if(mAuth != null)
-            mAuth.signOut();
 
         facebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -165,11 +167,6 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
     @Override
     public void onStop() {
         super.onStop();
-
-        if(mAuth != null){
-
-            mAuth.signOut();
-        }
 
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
