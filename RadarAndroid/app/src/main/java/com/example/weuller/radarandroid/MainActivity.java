@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Usuario> usuarios = new ArrayList<>();
     private Posicao posicao;
 
-    private Radar radar;
     private Handler mHandler;
     Button btnStop, btnStart, btnSair;
     UUID uuid = UUID.fromString("0001101-0000-1000-8000-00805F9B34FB");
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     BluetoothAdapter mBluetoothAdapter = null;
 
     private TextView txtUsuario;
+    private com.example.weuller.radarandroid.Models.Radar rdrRadar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
         btnSair = (Button) findViewById(R.id.btnSair);
+        rdrRadar = (com.example.weuller.radarandroid.Models.Radar) findViewById(R.id.rdrRadar);
+
 
         database = FirebaseDatabase.getInstance();
 //        myRef = database.getReference("users");
@@ -115,8 +117,13 @@ public class MainActivity extends AppCompatActivity {
                     posicao = new Posicao();
                     posicao = dataSnapshot.getValue(Posicao.class);
 
-                }catch (Exception e){}
+                    if(posicao != null){
 
+                        rdrRadar.setCurrentAngle(posicao.getAngulo());
+                        rdrRadar.setCurrentDistance(posicao.getDistancia());
+                    }
+                }
+                catch (Exception e){}
             }
 
             @Override
@@ -293,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //passa string para atualizar a tela
                                           //grau,distância.grau,distância.grau,distância.
-                    radar.updateScreenData("30,20.45,22.85,25.");
+                   // radar.updateScreenData("30,20.45,22.85,25.");
 
                 } catch (IOException e) {
                     break;

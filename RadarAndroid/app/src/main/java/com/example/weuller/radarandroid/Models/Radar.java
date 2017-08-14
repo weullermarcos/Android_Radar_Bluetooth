@@ -55,8 +55,8 @@ public class Radar extends View {
     private String distanceStr;
 
     private float maxDistance;
-    private String currentAngle;
-    private String currentDistance;
+    private int currentAngle;
+    private int currentDistance;
 
     public float getMaxDistance() {
         return maxDistance;
@@ -66,19 +66,19 @@ public class Radar extends View {
         this.maxDistance = maxDistance;
     }
 
-    public String getCurrentAngle() {
-        return currentAngle == null ? "0" : currentAngle ;
+    public int getCurrentAngle() {
+        return currentAngle;
     }
 
-    public void setCurrentAngle(String currentAngle) {
+    public void setCurrentAngle(int currentAngle) {
         this.currentAngle = currentAngle;
     }
 
-    public String getCurrentDistance() {
-        return currentDistance == null ? "0" : currentDistance;
+    public int getCurrentDistance() {
+        return currentDistance;
     }
 
-    public void setCurrentDistance(String currentDistance) {
+    public void setCurrentDistance(int currentDistance) {
         this.currentDistance = currentDistance;
     }
 
@@ -235,10 +235,7 @@ public class Radar extends View {
         canvas.drawText("20 cm", (center_x + radius3 - X_BACK_TEXT_CONSTANT), (center_y - Y_BACK_TEXT_CONSTANT), paintText);
         canvas.drawText("10 cm", (center_x + radius4 - X_BACK_TEXT_CONSTANT), (center_y - Y_BACK_TEXT_CONSTANT), paintText);
 
-
         //Desenhando textos inferiores do radar
-//        private String objectValueIn;
-//        private String objectValueOut;
         canvas.drawText(objectStr, (center_x - radius1 + 30), (center_y + 70), paintText2);
         canvas.drawText(objectValueOut, (center_x - radius1 + 140), (center_y + 70), paintText2);
         canvas.drawText(angleStr, (center_x - radius1 + 40), (center_y + 120), paintText2);
@@ -427,8 +424,8 @@ public class Radar extends View {
         Log.d("ANGLE", angle);
         Log.d("DISTANCE", distance);
 
-        this.setCurrentAngle(angle);
-        this.setCurrentDistance(distance);
+//        this.setCurrentAngle(angle);
+//        this.setCurrentDistance(distance);
 
     }
 }

@@ -36,6 +36,7 @@
 
 
     <com.example.weuller.radarandroid.Models.Radar
+        android:id="@+id/rdrRadar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:angleLabel="Angle: "
