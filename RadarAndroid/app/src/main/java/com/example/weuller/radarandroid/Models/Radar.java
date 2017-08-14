@@ -37,15 +37,15 @@ public class Radar extends View {
     private float startY = 0;
     private boolean incrementAngle = true;
     private int needleAngle = INITIAL_ANGLE;
-    private int needleAngle2 = INITIAL_ANGLE;
-    private int needleAngle3 = INITIAL_ANGLE;
-    private int needleAngle4 = INITIAL_ANGLE;
-    private int needleAngle5 = INITIAL_ANGLE;
-    private int needleAngle6 = INITIAL_ANGLE;
-    private int needleAngle7 = INITIAL_ANGLE;
-    private int needleAngle8 = INITIAL_ANGLE;
-    private int needleAngle9 = INITIAL_ANGLE;
-    private int needleAngle10 = INITIAL_ANGLE;
+//    private int needleAngle2 = INITIAL_ANGLE;
+//    private int needleAngle3 = INITIAL_ANGLE;
+//    private int needleAngle4 = INITIAL_ANGLE;
+//    private int needleAngle5 = INITIAL_ANGLE;
+//    private int needleAngle6 = INITIAL_ANGLE;
+//    private int needleAngle7 = INITIAL_ANGLE;
+//    private int needleAngle8 = INITIAL_ANGLE;
+//    private int needleAngle9 = INITIAL_ANGLE;
+//    private int needleAngle10 = INITIAL_ANGLE;
 
 
     private String objectStr;
@@ -244,102 +244,116 @@ public class Radar extends View {
         canvas.drawText( this.getCurrentDistance() + " cm", (center_x - radius1 + 140), (center_y + 170), paintText2);
 
         //Desenhando Agulha 1
+        if(this.getCurrentAngle() < INITIAL_ANGLE) {
+
+            needleAngle = INITIAL_ANGLE;
+        }
+        else if(this.getCurrentAngle() > FINAL_ANGLE) {
+
+            needleAngle = FINAL_ANGLE;
+        }
+        else {
+
+            needleAngle = this.getCurrentAngle();
+        }
+
         xFinal = center_x + catetoAdjacente(needleAngle, radius1);
         yFinal = center_y - catetoOposto(needleAngle, radius1);
+        paintLine.setAlpha(255);
         canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
 
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle2, radius1);
-        yFinal = center_y - catetoOposto(needleAngle2, radius1);
-        paintLine.setAlpha(240);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle3, radius1);
-        yFinal = center_y - catetoOposto(needleAngle3, radius1);
-        paintLine.setAlpha(225);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle4, radius1);
-        yFinal = center_y - catetoOposto(needleAngle4, radius1);
-        paintLine.setAlpha(210);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle5, radius1);
-        yFinal = center_y - catetoOposto(needleAngle5, radius1);
-        paintLine.setAlpha(195);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle6, radius1);
-        yFinal = center_y - catetoOposto(needleAngle6, radius1);
-        paintLine.setAlpha(180);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle7, radius1);
-        yFinal = center_y - catetoOposto(needleAngle7, radius1);
-        paintLine.setAlpha(165);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle8, radius1);
-        yFinal = center_y - catetoOposto(needleAngle8, radius1);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle9, radius1);
-        yFinal = center_y - catetoOposto(needleAngle9, radius1);
-        paintLine.setAlpha(150);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
-
-        //Desenhando Agulha 1
-        xFinal = center_x + catetoAdjacente(needleAngle10, radius1);
-        yFinal = center_y - catetoOposto(needleAngle10, radius1);
-        paintLine.setAlpha(135);
-        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle2, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle2, radius1);
+//        paintLine.setAlpha(240);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle3, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle3, radius1);
+//        paintLine.setAlpha(225);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle4, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle4, radius1);
+//        paintLine.setAlpha(210);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle5, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle5, radius1);
+//        paintLine.setAlpha(195);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle6, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle6, radius1);
+//        paintLine.setAlpha(180);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle7, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle7, radius1);
+//        paintLine.setAlpha(165);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle8, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle8, radius1);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle9, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle9, radius1);
+//        paintLine.setAlpha(150);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
+//
+//        //Desenhando Agulha 1
+//        xFinal = center_x + catetoAdjacente(needleAngle10, radius1);
+//        yFinal = center_y - catetoOposto(needleAngle10, radius1);
+//        paintLine.setAlpha(135);
+//        canvas.drawLine(startX, startY, xFinal, yFinal, paintLine);
 
         //lógica para controle de movimento da agulha
-        if (needleAngle <= FINAL_ANGLE && incrementAngle) { // set end points
-            needleAngle10 = needleAngle9;
-            needleAngle9 = needleAngle8;
-            needleAngle8 = needleAngle7;
-            needleAngle7 = needleAngle6;
-            needleAngle6 = needleAngle5;
-            needleAngle5 = needleAngle4;
-            needleAngle4 = needleAngle3;
-            needleAngle3 = needleAngle2;
-            needleAngle2 = needleAngle;
-            needleAngle ++;
-        }
-        else if(needleAngle == INITIAL_ANGLE){
-            incrementAngle = true;
-            needleAngle10 = needleAngle9;
-            needleAngle9 = needleAngle8;
-            needleAngle8 = needleAngle7;
-            needleAngle7 = needleAngle6;
-            needleAngle6 = needleAngle5;
-            needleAngle5 = needleAngle4;
-            needleAngle4 = needleAngle3;
-            needleAngle3 = needleAngle2;
-            needleAngle2 = needleAngle;
-            needleAngle ++;
-        }
-        else{
-            incrementAngle = false;
-            needleAngle10 = needleAngle9;
-            needleAngle9 = needleAngle8;
-            needleAngle8 = needleAngle7;
-            needleAngle7 = needleAngle6;
-            needleAngle6 = needleAngle5;
-            needleAngle5 = needleAngle4;
-            needleAngle4 = needleAngle3;
-            needleAngle3 = needleAngle2;
-            needleAngle2 = needleAngle;
-            needleAngle --;
-        }
+//        if (needleAngle <= FINAL_ANGLE && incrementAngle) { // set end points
+//            needleAngle10 = needleAngle9;
+//            needleAngle9 = needleAngle8;
+//            needleAngle8 = needleAngle7;
+//            needleAngle7 = needleAngle6;
+//            needleAngle6 = needleAngle5;
+//            needleAngle5 = needleAngle4;
+//            needleAngle4 = needleAngle3;
+//            needleAngle3 = needleAngle2;
+//            needleAngle2 = needleAngle;
+//            needleAngle ++;
+//        }
+//        else if(needleAngle == INITIAL_ANGLE){
+//            incrementAngle = true;
+//            needleAngle10 = needleAngle9;
+//            needleAngle9 = needleAngle8;
+//            needleAngle8 = needleAngle7;
+//            needleAngle7 = needleAngle6;
+//            needleAngle6 = needleAngle5;
+//            needleAngle5 = needleAngle4;
+//            needleAngle4 = needleAngle3;
+//            needleAngle3 = needleAngle2;
+//            needleAngle2 = needleAngle;
+//            needleAngle ++;
+//        }
+//        else{
+//            incrementAngle = false;
+//            needleAngle10 = needleAngle9;
+//            needleAngle9 = needleAngle8;
+//            needleAngle8 = needleAngle7;
+//            needleAngle7 = needleAngle6;
+//            needleAngle6 = needleAngle5;
+//            needleAngle5 = needleAngle4;
+//            needleAngle4 = needleAngle3;
+//            needleAngle3 = needleAngle2;
+//            needleAngle2 = needleAngle;
+//            needleAngle --;
+//        }
 
         //delay de movimento da agulha
         postInvalidateDelayed(DELAY); // set time here
@@ -376,7 +390,7 @@ public class Radar extends View {
 
     private Paint paintLine = new Paint() {
         {
-            setColor(Color.GREEN);
+            setColor(Color.RED);
             setStrokeWidth(5);
             setStyle(Paint.Style.FILL);
             setStyle(Paint.Style.STROKE);
