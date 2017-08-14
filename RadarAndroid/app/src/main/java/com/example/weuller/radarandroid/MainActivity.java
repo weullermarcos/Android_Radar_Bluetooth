@@ -17,11 +17,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.weuller.radarandroid.Models.Radar;
+import com.example.weuller.radarandroid.Models.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE = 5;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private CommunicationThread mCommunicationThread;
     private ConnectThread mConnectThread;
     private AcceptThread mAcceptThread;
+
+    private List<Usuario> usuarios = new ArrayList<>();
 
     private Radar radar;
     private Handler mHandler;
@@ -50,12 +62,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         txtUsuario = (TextView) findViewById(R.id.txtUsuario);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
         btnSair = (Button) findViewById(R.id.btnSair);
 
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("users");
         mAuth = FirebaseAuth.getInstance();
 
         if(mAuth.getCurrentUser() != null)
@@ -82,8 +95,26 @@ public class MainActivity extends AppCompatActivity {
 //            mAcceptThread.start();
 //        }
 
-        radar =  new Radar(this);
-        radar.updateScreenData("30,20.45,22.85,25.");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                usuarios.clear();
+
+                for (DataSnapshot usuario: dataSnapshot.getChildren()) {
+
+                    Usuario user = (Usuario) usuario.getValue(Usuario.class);
+                    usuarios.add(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+                Log.w("LOG", "Failed to read value.", error.toException());
+            }
+        });
 
 
         btnStart.setOnClickListener(new View.OnClickListener() {
