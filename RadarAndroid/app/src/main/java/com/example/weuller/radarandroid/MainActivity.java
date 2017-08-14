@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.weuller.radarandroid.Models.Posicao;
 import com.example.weuller.radarandroid.Models.Radar;
 import com.example.weuller.radarandroid.Models.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private AcceptThread mAcceptThread;
 
     private List<Usuario> usuarios = new ArrayList<>();
+    private Posicao posicao;
 
     private Radar radar;
     private Handler mHandler;
@@ -68,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         btnSair = (Button) findViewById(R.id.btnSair);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("users");
+//        myRef = database.getReference("users");
+        myRef = database.getReference("posicao");
         mAuth = FirebaseAuth.getInstance();
 
         if(mAuth.getCurrentUser() != null)
@@ -100,13 +103,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                usuarios.clear();
+//                usuarios.clear();
+//                for (DataSnapshot usuario: dataSnapshot.getChildren()) {
+//
+//                    Usuario user = (Usuario) usuario.getValue(Usuario.class);
+//                    usuarios.add(user);
+//                }
 
-                for (DataSnapshot usuario: dataSnapshot.getChildren()) {
+                try {
 
-                    Usuario user = (Usuario) usuario.getValue(Usuario.class);
-                    usuarios.add(user);
-                }
+                    posicao = new Posicao();
+                    posicao = dataSnapshot.getValue(Posicao.class);
+
+                }catch (Exception e){}
+
             }
 
             @Override
