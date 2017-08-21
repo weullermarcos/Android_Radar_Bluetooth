@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
 
     private static final String TAG = "LOG";
 
-    private Button btnEntrar;
+    private Button btnEntrar, btnCadastrar;
     private EditText edtSenha, edtEmail;
     LoginButton facebookButton;
     SignInButton btnGoogle;
@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
             return;
         }
 
+        btnCadastrar = (Button) findViewById(R.id.btnCadastrar);
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
@@ -162,6 +163,16 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
                 signIn();
             }
         });
+
+        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
